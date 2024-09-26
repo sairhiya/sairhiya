@@ -1,0 +1,15 @@
+#include <stdio.h>
+
+int main() {
+    int sum = 0;
+
+    // Calculate the sum of odd numbers between 1 and 100
+    for (int i = 1; i <= 100; i += 2) {
+        sum += i; // Add the current odd number to sum
+    }
+
+    // Display the result
+    printf("The sum of all odd numbers between 1 and 100 is: %d\n", sum);
+
+    return 0;
+}
