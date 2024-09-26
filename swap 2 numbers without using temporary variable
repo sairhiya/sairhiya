@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+int main() {
+    int num1, num2;
+
+    // User input
+    printf("Enter the first number: ");
+    scanf("%d", &num1);
+    printf("Enter the second number: ");
+    scanf("%d", &num2);
+
+    // Display values before swapping
+    printf("Before swapping: num1 = %d, num2 = %d\n", num1, num2);
+
+    // Swap without using a temporary variable
+    num1 = num1 + num2; // Step 1: Add both numbers
+    num2 = num1 - num2; // Step 2: Subtract the new num2 from the sum to get the original num1
+    num1 = num1 - num2; // Step 3: Subtract the new num2 (original num1) from the sum to get the original num2
+
+    // Display values after swapping
+    printf("After swapping: num1 = %d, num2 = %d\n", num1, num2);
+
+    return 0;
+}
