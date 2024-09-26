@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+int main() {
+    int num1, num2, gcd;
+
+    // User input
+    printf("Enter two integers:\n");
+    printf("Number 1: ");
+    scanf("%d", &num1);
+    printf("Number 2: ");
+    scanf("%d", &num2);
+
+    // Ensure num1 is greater than num2 for the algorithm
+    if (num1 < num2) {
+        int temp = num1;
+        num1 = num2;
+        num2 = temp;
+    }
+
+    // Calculate GCD using Euclidean algorithm
+    while (num2 != 0) {
+        gcd = num2;          // Store the smaller number
+        num2 = num1 % num2; // Remainder of num1 divided by num2
+        num1 = gcd;         // Assign the smaller number to num1
+    }
+
+    // Display the result
+    printf("GCD is: %d\n", num1);
+
+    return 0;
+}
