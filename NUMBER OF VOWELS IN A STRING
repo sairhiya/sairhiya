@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int main() {
+    char str[100]; // Declare a string array with a maximum size
+    int count = 0; // Initialize vowel count
+
+    // Input the string
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin); // Use fgets to read the string with spaces
+
+    // Loop through the string and count vowels
+    for (int i = 0; str[i] != '\0'; i++) {
+        char ch = str[i];
+        // Check for vowels (both uppercase and lowercase)
+        if (ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U' ||
+            ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
+            count++;
+        }
+    }
+
+    // Print the number of vowels
+    printf("The number of vowels in the string is: %d\n", count);
+
+    return 0; // Exit the program successfully
+}
