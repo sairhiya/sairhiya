@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+int characterFrequency(const char *str, char ch) {
+    int count = 0;
+    while (*str != '\0') {
+        if (*str == ch) {
+            count++;
+        }
+        str++;
+    }
+    return count;
+}
+
+int main() {
+    char str[100];
+    char ch;
+
+    printf("Enter a string: ");
+    fgets(str, sizeof(str), stdin);
+    str[strcspn(str, "\n")] = '\0'; // Remove newline character
+
+    printf("Enter a character to find its frequency: ");
+    scanf(" %c", &ch); // Space before %c to ignore any leading whitespace
+
+    int frequency = characterFrequency(str, ch);
+    printf("The character '%c' occurs %d times in the string.\n", ch, frequency);
+
+    return 0;
+}
+
