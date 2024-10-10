@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+void stringCopy(char *dest, const char *src) {
+    while (*src != '\0') {
+        *dest = *src; // Copy each character
+        dest++;       // Move to the next character in destination
+        src++;        // Move to the next character in source
+    }
+    *dest = '\0'; // Null terminate the destination string
+}
+
+int main() {
+    char source[100];
+    char destination[100];
+
+    printf("Enter a string: ");
+    fgets(source, sizeof(source), stdin);
+
+    // Remove newline character from fgets input if present
+    source[strcspn(source, "\n")] = '\0';
+
+    stringCopy(destination, source);
+
+    printf("Copied string: %s\n", destination);
+
+    return 0;
+}
