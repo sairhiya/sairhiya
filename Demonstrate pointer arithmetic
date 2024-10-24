@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+int main() {
+    int array[] = {10, 20, 30, 40, 50};
+    int *ptr = array; // Pointer to the first element of the array
+    int n = sizeof(array) / sizeof(array[0]); // Number of elements in the array
+
+    printf("Array elements using pointer arithmetic:\n");
+    
+    // Displaying elements using pointer arithmetic
+    for (int i = 0; i < n; i++) {
+        printf("Element %d: %d\n", i, *(ptr + i)); // Accessing elements using *(ptr + i)
+    }
+
+    printf("\nPointer arithmetic demonstration:\n");
+    
+    // Showing the pointer increment
+    printf("Pointer before increment: %p\n", (void*)ptr);
+    ptr++; // Move to the next element
+    printf("Pointer after increment: %p\n", (void*)ptr);
+    printf("Current element: %d\n", *ptr); // Access the second element
+
+    // Decrementing the pointer
+    ptr--; // Move back to the first element
+    printf("\nPointer after decrement: %p\n", (void*)ptr);
+    printf("Current element: %d\n", *ptr); // Access the first element
+
+    // Demonstrating pointer difference
+    int *ptrStart = array; // Pointer to the start of the array
+    int *ptrEnd = array + n - 1; // Pointer to the last element
+    printf("\nDifference between pointers: %ld\n", ptrEnd - ptrStart); // Should be n - 1
+
+    return 0;
+}
