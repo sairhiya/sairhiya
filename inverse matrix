@@ -1,0 +1,57 @@
+#include <stdio.h>
+
+#define MAX 10 // Maximum size of the matrix
+
+// Function to calculate the determinant of a 2x2 matrix
+float determinant2x2(float matrix[2][2]) {
+    return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+}
+
+// Function to calculate the inverse of a 2x2 matrix
+int inverse2x2(float matrix[2][2], float inverse[2][2]) {
+    float det = determinant2x2(matrix);
+    if (det == 0) {
+        return 0; // No inverse if determinant is 0
+    }
+    inverse[0][0] = matrix[1][1] / det;
+    inverse[0][1] = -matrix[0][1] / det;
+    inverse[1][0] = -matrix[1][0] / det;
+    inverse[1][1] = matrix[0][0] / det;
+    return 1; // Inverse calculated successfully
+}
+
+// Function to calculate the determinant of a 3x3 matrix
+float determinant3x3(float matrix[3][3]) {
+    return matrix[0][0] * (matrix[1][1] * matrix[2][2] - matrix[1][2] * matrix[2][1]) -
+           matrix[0][1] * (matrix[1][0] * matrix[2][2] - matrix[1][2] * matrix[2][0]) +
+           matrix[0][2] * (matrix[1][0] * matrix[2][1] - matrix[1][1] * matrix[2][0]);
+}
+
+// Function to calculate the inverse of a 3x3 matrix
+int inverse3x3(float matrix[3][3], float inverse[3][3]) {
+    float det = determinant3x3(matrix);
+    if (det == 0) {
+        return 0; // No inverse if determinant is 0
+    }
+    inverse[0][0] = (matrix[1][1] * matrix[2][2] - matrix[1][2] * matrix[2][1]) / det;
+    inverse[0][1] = (matrix[0][2] * matrix[2][1] - matrix[0][1] * matrix[2][2]) / det;
+    inverse[0][2] = (matrix[0][1] * matrix[1][2] - matrix[0][2] * matrix[1][1]) / det;
+    inverse[1][0] = (matrix[1][2] * matrix[2][0] - matrix[1][0] * matrix[2][2]) / det;
+    inverse[1][1] = (matrix[0][0] * matrix[2][2] - matrix[0][2] * matrix[2][0]) / det;
+    inverse[1][2] = (matrix[0][2] * matrix[1][0] - matrix[0][0] * matrix[1][2]) / det;
+    inverse[2][0] = (matrix[1][0] * matrix[2][1] - matrix[1][1] * matrix[2][0]) / det;
+    inverse[2][1] = (matrix[0][1] * matrix[2][0] - matrix[0][0] * matrix[2][1]) / det;
+    inverse[2][2] = (matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]) / det;
+    return 1; // Inverse calculated successfully
+}
+
+void printMatrix(float matrix[MAX][MAX], int rows, int cols) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("%.2f ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
