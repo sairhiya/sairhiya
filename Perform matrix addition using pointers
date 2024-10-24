@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+// Function to add two matrices
+void addMatrices(int* matrix1, int* matrix2, int* result, int rows, int cols) {
+    for (int i = 0; i < rows * cols; i++) {
+        *(result + i) = *(matrix1 + i) + *(matrix2 + i);
+    }
+}
+
+// Function to print matrix
+void printMatrix(int* matrix, int rows, int cols) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("%d ", *(matrix + i * cols + j));
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int rows = 2;
+    int cols = 3;
+
+    // Declare matrices
+    int matrix1[2][3] = {{1, 2, 3}, {4, 5, 6}};
+    int matrix2[2][3] = {{7, 8, 9}, {10, 11, 12}};
+    int result[2][3];
+
+    // Print original matrices
+    printf("Matrix 1:\n");
+    printMatrix((int*)matrix1, rows, cols);
+    printf("Matrix 2:\n");
+    printMatrix((int*)matrix2, rows, cols);
+
+    // Add matrices using pointers
+    addMatrices((int*)matrix1, (int*)matrix2, (int*)result, rows, cols);
+
+    // Print result
+    printf("Result:\n");
+    printMatrix((int*)result, rows, cols);
+
+    return 0;
+}
