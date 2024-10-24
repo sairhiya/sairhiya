@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+// Function to find maximum of two numbers using pointers
+int findMax(int* num1, int* num2) {
+    return (*num1 > *num2) ? *num1 : *num2;
+}
+
+int main() {
+    int num1, num2;
+
+    // Input two numbers
+    printf("Enter first number: ");
+    scanf("%d", &num1);
+    printf("Enter second number: ");
+    scanf("%d", &num2);
+
+    // Find maximum using pointers
+    int max = findMax(&num1, &num2);
+
+    printf("Maximum: %d\n", max);
+
+    return 0;
+}
