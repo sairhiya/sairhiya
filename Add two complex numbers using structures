@@ -1,0 +1,49 @@
+#include <stdio.h>
+
+// Define a structure to represent a complex number
+struct Complex {
+    float real;
+    float imaginary;
+};
+
+// Function to add two complex numbers
+struct Complex addComplex(struct Complex c1, struct Complex c2) {
+    struct Complex result;
+    result.real = c1.real + c2.real;
+    result.imaginary = c1.imaginary + c2.imaginary;
+    return result;
+}
+
+// Function to input a complex number
+void inputComplex(struct Complex *c) {
+    printf("Enter real part: ");
+    scanf("%f", &c->real);
+    printf("Enter imaginary part: ");
+    scanf("%f", &c->imaginary);
+}
+
+// Function to display a complex number
+void displayComplex(struct Complex c) {
+    printf("Complex Number: %.2f + %.2fi\n", c.real, c.imaginary);
+}
+
+int main() {
+    struct Complex c1, c2, sum;
+
+    // Input first complex number
+    printf("Enter first complex number:\n");
+    inputComplex(&c1);
+
+    // Input second complex number
+    printf("Enter second complex number:\n");
+    inputComplex(&c2);
+
+    // Add the complex numbers
+    sum = addComplex(c1, c2);
+
+    // Display the result
+    printf("\nResult of addition:\n");
+    displayComplex(sum);
+
+    return 0;
+}
