@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <string.h>
+
+// Define a structure to represent a student
+struct Student {
+    char name[50];
+    int age;
+    float gpa;
+};
+
+// Function to input student information
+void inputStudentInfo(struct Student *s) {
+    printf("Enter student name: ");
+    scanf(" %[^\n]", s->name); // Use %[^\n] to read a string with spaces
+    printf("Enter student age: ");
+    scanf("%d", &s->age);
+    printf("Enter student GPA: ");
+    scanf("%f", &s->gpa);
+}
+
+// Function to display student information
+void displayStudentInfo(struct Student *s) {
+    printf("\nStudent Information:\n");
+    printf("Name: %s\n", s->name);
+    printf("Age: %d\n", s->age);
+    printf("GPA: %.2f\n", s->gpa);
+}
+
+int main() {
+    struct Student student;
+    struct Student *ptr = &student; // Pointer to the student structure
+
+    // Input student information
+    inputStudentInfo(ptr);
+
+    // Display student information
+    displayStudentInfo(ptr);
+
+    return 0;
+}
