@@ -1,0 +1,23 @@
+
+#include <stdio.h>
+
+int main() {
+    // Declare variables
+    int var = 10;
+    int* ptr;  // Declare pointer
+
+    // Assign address of var to ptr
+    ptr = &var;
+
+    // Print values
+    printf("Value of var: %d\n", var);
+    printf("Address of var: %p\n", (void*)&var);
+    printf("Value of ptr: %p\n", (void*)ptr);
+    printf("Value at ptr: %d\n", *ptr);
+
+    // Modify var using ptr
+    *ptr = 20;
+    printf("Value of var after modification: %d\n", var);
+
+    return 0;
+}
