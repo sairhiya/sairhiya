@@ -1,0 +1,66 @@
+#include <stdio.h>
+
+#define MAX 10 // Maximum size of the matrix
+
+// Function to calculate the determinant of a matrix
+int determinant(int matrix[MAX][MAX], int n) {
+    int det = 0;
+
+    // Base case for 1x1 matrix
+    if (n == 1) {
+        return matrix[0][0];
+    }
+
+    // Base case for 2x2 matrix
+    if (n == 2) {
+        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+    }
+
+    // Recursively calculate determinant
+    for (int f = 0; f < n; f++) {
+        int subMatrix[MAX][MAX];
+        int subi = 0; // Submatrix row index
+
+        for (int i = 1; i < n; i++) { // Skip first row
+            int subj = 0; // Submatrix column index
+            for (int j = 0; j < n; j++) {
+                if (j == f) {
+                    continue; // Skip the column being processed
+                }
+                subMatrix[subi][subj] = matrix[i][j];
+                subj++;
+            }
+            subi++;
+        }
+
+        // Use cofactor expansion
+        det += (f % 2 == 0 ? 1 : -1) * matrix[0][f] * determinant(subMatrix, n - 1);
+    }
+
+    return det;
+}
+
+int main() {
+    int matrix[MAX][MAX];
+    int n;
+
+    // Input matrix size
+    printf("Enter the size of the matrix (n x n): ");
+    scanf("%d", &n);
+
+    // Input matrix elements
+    printf("Enter elements of the matrix:\n");
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+
+    // Calculate determinant
+    int det = determinant(matrix, n);
+
+    // Output the result
+    printf("Determinant of the matrix is: %d\n", det);
+
+    return 0;
+}
