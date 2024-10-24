@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <string.h>
+
+// Define a structure to represent a student
+struct Student {
+    char name[50];
+    int age;
+    float gpa;
+};
+
+// Function to input student information
+void inputStudentInfo(struct Student *s) {
+    printf("Enter student name: ");
+    fgets(s->name, sizeof(s->name), stdin);
+    s->name[strcspn(s->name, "\n")] = '\0'; // Remove newline character
+
+    printf("Enter student age: ");
+    scanf("%d", &s->age);
+
+    printf("Enter student GPA: ");
+    scanf("%f", &s->gpa);
+}
+
+// Function to display student information
+void displayStudentInfo(struct Student s) {
+    printf("\nStudent Information:\n");
+    printf("Name: %s\n", s.name);
+    printf("Age: %d\n", s.age);
+    printf("GPA: %.2f\n", s.gpa);
+}
+
+int main() {
+    struct Student student;
+
+    // Input student information
+    inputStudentInfo(&student);
+
+    // Display student information
+    displayStudentInfo(student);
+
+    return 0;
+}
