@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+int main() {
+    FILE *file;
+    char filename[100];
+    int count = 0;
+    char ch;
+
+    // Ask user for the filename
+    printf("Enter the filename: ");
+    scanf("%s", filename);
+
+    // Open the file for reading
+    file = fopen(filename, "r");
+    if (file == NULL) {
+        perror("Error opening file");
+        return 1;
+    }
+
+    // Count characters
+    while ((ch = fgetc(file)) != EOF) {
+        count++;
+    }
+
+    // Close the file
+    fclose(file);
+
+    // Display the result
+    printf("Number of characters in '%s': %d\n", filename, count);
+
+    return 0;
+}
