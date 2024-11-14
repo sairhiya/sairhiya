@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+#define ROWS 5
+#define COLS 5
+#define SHOWS 3
+
+// Define the shows with a 3D array to store seat reservations
+int seats[SHOWS][ROWS][COLS];
+
+// Function prototypes
+void initialize_seats();
+void display_seats(int show);
+void reserve_seat(int show);
+void cancel_seat(int show);
+
+int main() {
+    int choice, show;
+
+    initialize_seats();
+
+    printf("Movie Ticket Booking System\n");
+
+    while (1) {
+        printf("\nMenu:\n");
+        printf("1. Reserve Seat\n");
+        printf("2. Cancel Seat\n");
+        printf("3. Display Available Seats\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        if (choice == 4) {
+            printf("Exiting the system. Goodbye!\n");
+            break;
+        }
+
+        printf("Choose Show (1, 2, or 3): ");
+        scanf("%d", &show);
+
+        if (show < 1 || show > SHOWS) {
+            printf("Invalid show number. Please select 1, 2, or 3
