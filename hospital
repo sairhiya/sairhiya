@@ -1,0 +1,196 @@
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
+
+#define MAX_PATIENTS 100
+
+// Structure to hold patient details
+struct Patient {
+    int id;
+    char name[50];
+    char admission_date[11];
+    char discharge_date[11];
+    int days_admitted;
+    double daily_rate;
+    double service_charge;
+    int discharged;
+};
+
+// Array to store patient records
+struct Patient patients[MAX_PATIENTS];
+int patient_count = 0;
+
+// Function prototypes
+void admit_patient();
+void discharge_patient();
+void calculate_bill();
+void display_patient_details();
+void display_all_patients();
+
+int main() {
+    int choice;
+
+    printf("Hospital Patient Management System\n");
+
+    while (1) {
+        printf("\nMenu:\n");
+        printf("1. Admit Patient\n");
+        printf("2. Discharge Patient\n");
+        printf("3. Calculate Bill\n");
+        printf("4. Display Patient Details\n");
+        printf("5. Display All Patients\n");
+        printf("6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                admit_patient();
+                break;
+            case 2:
+                discharge_patient();
+                break;
+            case 3:
+                calculate_bill();
+                break;
+            case 4:
+                display_patient_details();
+                break;
+            case 5:
+                display_all_patients();
+                break;
+            case 6:
+                printf("Exiting the system. Goodbye!\n");
+                return 0;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+}
+
+// Function to admit a patient
+void admit_patient() {
+    if (patient_count >= MAX_PATIENTS) {
+        printf("Maximum patient capacity reached.\n");
+        return;
+    }
+
+    struct Patient new_patient;
+    new_patient.id = patient_count + 1;
+    new_patient.discharged = 0;
+
+    printf("Enter Patient Name: ");
+    scanf(" %[^\n]", new_patient.name);
+
+    printf("Enter Admission Date (YYYY-MM-DD): ");
+    scanf("%s", new_patient.admission_date);
+
+    printf("Enter Daily Rate: ");
+    scanf("%lf", &new_patient.daily_rate);
+
+    printf("Enter Service Charge: ");
+    scanf("%lf", &new_patient.service_charge);
+
+    patients[patient_count++] = new_patient;
+    printf("Patient admitted successfully with ID: %d\n", new_patient.id);
+}
+
+// Function to discharge a patient
+void discharge_patient() {
+    int id;
+    printf("Enter Patient ID to discharge: ");
+    scanf("%d", &id);
+
+    for (int i = 0; i < patient_count; i++) {
+        if (patients[i].id == id && !patients[i].discharged) {
+            printf("Enter Discharge Date (YYYY-MM-DD): ");
+            scanf("%s", patients[i].discharge_date);
+
+            printf("Enter number of days admitted: ");
+            scanf("%d", &patients[i].days_admitted);
+
+            patients[i].discharged = 1;
+            printf("Patient ID %d discharged successfully.\n", id);
+            return;
+        }
+    }
+
+    printf("Patient ID not found or already discharged.\n");
+}
+
+// Function to calculate bill for a patient
+void calculate_bill() {
+    int id;
+    printf("Enter Patient ID to calculate bill: ");
+    scanf("%d", &id);
+
+    for (int i = 0; i < patient_count; i++) {
+        if (patients[i].id == id) {
+            if (!patients[i].discharged) {
+                printf("Patient has not been discharged yet. Cannot calculate bill.\n");
+                return;
+            }
+
+            double total_bill = (patients[i].days_admitted * patients[i].daily_rate) + patients[i].service_charge;
+            printf("Bill for Patient ID %d:\n", id);
+            printf("Name: %s\n", patients[i].name);
+            printf("Admission Date: %s\n", patients[i].admission_date);
+            printf("Discharge Date: %s\n", patients[i].discharge_date);
+            printf("Days Admitted: %d\n", patients[i].days_admitted);
+            printf("Daily Rate: %.2f\n", patients[i].daily_rate);
+            printf("Service Charge: %.2f\n", patients[i].service_charge);
+            printf("Total Bill: %.2f\n", total_bill);
+            return;
+        }
+    }
+
+    printf("Patient ID not found.\n");
+}
+
+// Function to display details of a specific patient
+void display_patient_details() {
+    int id;
+    printf("Enter Patient ID to display details: ");
+    scanf("%d", &id);
+
+    for (int i = 0; i < patient_count; i++) {
+        if (patients[i].id == id) {
+            printf("Patient ID: %d\n", id);
+            printf("Name: %s\n", patients[i].name);
+            printf("Admission Date: %s\n", patients[i].admission_date);
+            if (patients[i].discharged) {
+                printf("Discharge Date: %s\n", patients[i].discharge_date);
+                printf("Days Admitted: %d\n", patients[i].days_admitted);
+            } else {
+                printf("Status: Currently Admitted\n");
+            }
+            printf("Daily Rate: %.2f\n", patients[i].daily_rate);
+            printf("Service Charge: %.2f\n", patients[i].service_charge);
+            return;
+        }
+    }
+
+    printf("Patient ID not found.\n");
+}
+
+// Function to display all patients in the system
+void display_all_patients() {
+    if (patient_count == 0) {
+        printf("No patients in the system.\n");
+        return;
+    }
+
+    printf("\nList of Patients:\n");
+    printf("ID\tName\t\tAdmission Date\tDischarge Date\tStatus\n");
+    printf("---------------------------------------------------------------\n");
+
+    for (int i = 0; i < patient_count; i++) {
+        printf("%d\t%-15s\t%s\t%s\t%s\n", 
+            patients[i].id, 
+            patients[i].name, 
+            patients[i].admission_date, 
+            patients[i].discharged ? patients[i].discharge_date : "N/A", 
+            patients[i].discharged ? "Discharged" : "Admitted"
+        );
+    }
+}
