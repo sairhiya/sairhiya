@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_BOOKS 100
+#define FINE_PER_DAY 2.00   // Fine per day for overdue books
+
+// Book structure
+struct Book {
+    int id;
+    char title[50];
+    int total_copies;
+    int available_copies;
+    int issue_date;
+};
+
+// Array to store books in the library
+struct Book library[MAX_BOOKS];
+int book_count = 0;
+
+// Function prototypes
+void add_book();
+void borrow_book();
+void return_book();
+void display_books();
+int calculate_fine(int issue_date, int return_date);
+
+int main() {
+    int choice;
+
+    printf("Library Management System\n");
+
+    while (1) {
+        printf("\nChoose an option:\n");
+        printf("1. Add Book\n");
+        printf("2. Borrow Book\n");
+        printf("3. Return Book\n");
+        printf("4. Display Books\n");
+        printf("5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                add_book();
+                break;
+            case 2:
+                borrow_book();
+                break;
+            case 3:
+                return_book();
+                break;
+            case 4:
+                display_books();
+                break;
+            case 5:
+                printf("Exiting the system. Goodbye!\n");
+                return 0;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+}
+
+// Function to add a book to the library
+void add_book() {
+    if (book_count >= MAX_BOOKS) {
+        printf("Library is full. Cannot add more books.\n");
+        return;
+    }
+
+    struct Book new_book;
+    new_book.issue_date = 0;  // No issue date initially
+
+    printf("Enter Book ID: ");
+    scanf("%d", &new_book.id);
+    printf("Enter Book Title: ");
+    scanf(" %[^\n]", new_book.title);
+    printf("Enter Total Copies: ");
+    scanf("%d", &new_book.total_copies);
+
+    new_book.available_copies = new_book.total_copies;
+    library[book_count++] = new_book;
+
+    printf("Book added successfully.\n");
+}
+
+// Function to borrow a book from the library
+void borrow_book() {
+    int id, found = 0;
+    printf("Enter Book ID to borrow: ");
+    scanf("%d", &id);
+
+    for (int i = 0; i < book_count; i++) {
+   
