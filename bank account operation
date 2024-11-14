@@ -1,0 +1,89 @@
+#include <stdio.h>
+
+// Constants for transaction limits and fees
+#define MAX_FREE_TRANSACTIONS 3
+#define TRANSACTION_FEE 1.50
+
+// Function prototypes
+void deposit(float *balance, float amount);
+void withdraw(float *balance, float amount);
+void check_balance(float balance);
+
+int main() {
+    float balance = 0.0;           // Initial account balance
+    int transaction_count = 0;      // Track number of transactions
+    int choice;
+    float amount;
+
+    printf("Welcome to the Bank Account Management System\n");
+
+    while (1) {
+        // Display menu
+        printf("\nChoose an operation:\n");
+        printf("1. Deposit\n");
+        printf("2. Withdraw\n");
+        printf("3. Check Balance\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        // Process user choice
+        switch (choice) {
+            case 1: // Deposit
+                printf("Enter amount to deposit: ");
+                scanf("%f", &amount);
+                deposit(&balance, amount);
+                transaction_count++;
+                printf("Amount deposited successfully.\n");
+                break;
+
+            case 2: // Withdraw
+                printf("Enter amount to withdraw: ");
+                scanf("%f", &amount);
+                if (amount <= balance) {
+                    withdraw(&balance, amount);
+                    transaction_count++;
+                    printf("Amount withdrawn successfully.\n");
+                } else {
+                    printf("Insufficient balance!\n");
+                }
+                break;
+
+            case 3: // Check balance
+                check_balance(balance);
+                transaction_count++;
+                break;
+
+            case 4: // Exit
+                printf("Thank you for using the system. Goodbye!\n");
+                return 0;
+
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+
+        // Apply transaction fee if free transaction limit is exceeded
+        if (transaction_count > MAX_FREE_TRANSACTIONS) {
+            balance -= TRANSACTION_FEE;
+            printf("Transaction fee of $%.2f applied.\n", TRANSACTION_FEE);
+            transaction_count = MAX_FREE_TRANSACTIONS;  // Prevent further deductions after each transaction
+        }
+    }
+
+    return 0;
+}
+
+// Function to deposit money
+void deposit(float *balance, float amount) {
+    *balance += amount;
+}
+
+// Function to withdraw money
+void withdraw(float *balance, float amount) {
+    *balance -= amount;
+}
+
+// Function to check balance
+void check_balance(float balance) {
+    printf("Current balance: $%.2f\n", balance);
+}
